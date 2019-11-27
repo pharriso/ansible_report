@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>host</th>
+            <th>Completed Tasks</th>
+            <th>Changed Tasks</th>
+            <th>Failed Tasks</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for hosts in stats.json.results %}
+        <tr>
+            <td>{{ hosts.host_name }}</td>
+            <td>{{ hosts.ok }}</td>
+            <td {% if hosts.changed > 0 %}style="background:yellow;"{% endif %}>{{ hosts.changed }}</td>
+            <td {% if hosts.failures > 0 %}style="background:red;"{% endif %}>{{ hosts.failures }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

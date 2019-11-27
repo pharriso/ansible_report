@@ -1,0 +1,26 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars: 
+    tower_host: tower.example.com
+    tower_user: admin
+    tower_password: Redhat123
+  tasks:
+  - name: get job summary
+    uri:
+      url: https://{{ tower_host }}/api/v2/jobs/{{ job_id }}/job_host_summaries/
+      return_content: yes
+      force_basic_auth: yes
+      user: admin
+      password: Redhat123
+      validate_certs: no
+    register: stats
+
+  - name: create html report
+    template:
+      src: report.j2
+      dest: report.html
+    delegate_to: localhost
+    run_once: true
