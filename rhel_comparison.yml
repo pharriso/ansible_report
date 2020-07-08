@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  gather_facts: true
+  tasks:
+  - name: get rpm details
+    package_facts:
+
+  - debug:
+      var: ansible_facts.packages.postgresql
+
+  - name: create html report
+    template:
+      src: rhel_report.j2
+      dest: rhel_report.html
+    delegate_to: localhost
+    run_once: true

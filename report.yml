@@ -4,7 +4,7 @@
   connection: local
   gather_facts: false
   vars: 
-    tower_host: tower.example.com
+    tower_host: demo-ansible-tower.demolab.local
     tower_user: admin
     tower_password: Redhat123
   tasks:

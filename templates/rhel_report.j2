@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+  <h1><center><font color="white">RHEL Comparison</font></center></h1>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>host</th>
+            <th>RHEL Version</th>
+            <th>Kernel Version</th>
+            <th>Apache Version</th>
+            <th>PostgreSQL Version</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for hosts in groups.all %}
+        <tr>
+            <td>{{ hostvars[hosts].inventory_hostname }}</td>
+            <td>{{ hostvars[hosts].ansible_distribution_version }}</td>
+            <td>{{ hostvars[hosts].ansible_kernel }}</td>
+	    <td>{{ hostvars[hosts].ansible_facts.packages.httpd[0].version | default('x') }}-{{ hostvars[hosts].ansible_facts.packages.httpd[0].release | default('x') }}</td>
+	    <td>{{ hostvars[hosts].ansible_facts.packages.postgresql[0].version | default('x') }}-{{ hostvars[hosts].ansible_facts.packages.postgresql[0].release | default('x') }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
